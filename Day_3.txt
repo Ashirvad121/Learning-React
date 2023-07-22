@@ -1,0 +1,252 @@
+Day 3: Props and State
+Props
+-----
+In React, props (short for properties) are used to pass data from a parent component to a child component. Props are read-only, meaning that the 
+child component cannot modify the data it receives via props. This makes props a way to communicate information down the component tree.
+
+To pass props to a child component, you simply include them as attributes in the JSX when rendering the child component. Let's see an example:
+
+Create a new file named Person.js inside the src folder.
+
+Add the following code to the Person.js file:
+
+
+// Person.js
+import React from 'react';
+
+function Person(props) {
+  return (
+    <div>
+      <h2>Name: {props.name}</h2>
+      <p>Age: {props.age}</p>
+    </div>
+  );
+}
+
+export default Person;
+In this example, we've created a functional component called Person, which takes props as its argument. It then uses these props to display the 
+person's name and age.
+
+Using the Person Component in App
+Now, let's use the Person component inside our main App component:
+
+Open the App.js file.
+
+Replace the contents of App.js with the following code:
+
+
+// App.js
+import React from 'react';
+import Person from './Person';
+
+function App() {
+  return (
+    <div>
+      <h1>My React App</h1>
+      <Person name="Alice" age="30" />
+      <Person name="Bob" age="25" />
+      <Person name="Charlie" age="35" />
+    </div>
+  );
+}
+
+export default App;
+In this code, we import the Person component and use it multiple times inside the App component. We pass different names and ages as props to each 
+instance of the Person component.
+
+State
+-----
+While props are used to pass data from parent to child components, state is used to manage internal component data that can change over time. Unlike
+props, state is mutable and can be updated within the component. When state changes, the component re-renders, reflecting the updated data on the 
+screen.
+
+To use state in a component, you need to use a class component (not a functional component) and extend the React.Component class. Let's see an 
+example:
+
+Create a new file named Counter.js inside the src folder.
+
+Add the following code to the Counter.js file:
+
+
+// Counter.js
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+  }
+
+  handleIncrement = () => {
+    this.setState((prevState) => ({
+      count: prevState.count + 1,
+    }));
+  };
+
+  render() {
+    return (
+      <div>
+        <h2>Counter: {this.state.count}</h2>
+        <button onClick={this.handleIncrement}>Increment</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+In this example, we've created a class component called Counter. It has a state variable called count, initialized to 0. When the "Increment" button
+is clicked, the handleIncrement method is called, updating the state to increase the count by 1.
+
+Using the Counter Component in App
+Now, let's use the Counter component inside the App component:
+
+Open the App.js file.
+
+Add the following import statement at the top of the file:
+
+
+
+// App.js
+import React from 'react';
+import Person from './Person';
+import Counter from './Counter';
+
+function App() {
+  return (
+    <div>
+      <h1>My React App</h1>
+      <Person name="Alice" age="30" />
+      <Person name="Bob" age="25" />
+      <Person name="Charlie" age="35" />
+      <Counter />
+    </div>
+  );
+}
+
+export default App;
+
+
+Rendering the App
+-----------------
+With the above changes, save the files and refresh your browser to see the updated output. You should now see the Person components displaying 
+names and ages, as well as the Counter component with a counter and an "Increment" button.
+
+Q.why we are importing Component and where we will use it?
+In React, we import Component from the 'react' library when we want to create class components. Class components are a way to define React 
+components using ES6 classes and are used when we need to manage state or handle lifecycle methods.
+
+The Component class is part of the 'react' library and provides the base functionality that all React class components extend. By importing 
+Component, we can create our own class components by subclassing it. This allows us to access React's built-in features and methods, such as 
+setState() for managing state and lifecycle methods like componentDidMount() for performing actions when the component mounts.
+
+Let's take an example to demonstrate the use of Component:
+
+
+// Counter.js
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+  }
+
+  handleIncrement = () => {
+    this.setState((prevState) => ({
+      count: prevState.count + 1,
+    }));
+  };
+
+  render() {
+    return (
+      <div>
+        <h2>Counter: {this.state.count}</h2>
+        <button onClick={this.handleIncrement}>Increment</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+In this example, we import Component along with React at the beginning of the file:
+
+
+import React, { Component } from 'react';
+Then, we create a class component named Counter that extends the Component class:
+
+
+class Counter extends Component {
+  // ...
+}
+Because Counter extends Component, it inherits all the properties and methods of Component. This includes the setState() method, which we use in 
+the handleIncrement method to update the component's state.
+
+By using the Component class, we can define complex components with state management and lifecycle hooks, making it easier to build more 
+sophisticated and interactive applications.
+
+Keep in mind that with the introduction of React Hooks, you can now manage state and use lifecycle-like functionality in functional components as 
+well. Hooks provide an alternative approach to class components and have become the preferred way to work with state in modern React applications. 
+However, class components are still widely used, especially in legacy codebases or when working on projects that haven't fully adopted React Hooks.
+
+As you continue learning React, it's beneficial to understand both class components and functional components with hooks to work effectively in 
+different React codebases.
+
+
+Q.please explain this code given below:
+constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+}
+Ans:
+In React class components, the constructor is a special method that gets called when an instance of the component is created or initialized. 
+It is typically used for initializing the component's state and binding event handlers.
+
+Let's break down the code:
+
+jsx
+Copy code
+constructor(props) {
+  super(props);
+  this.state = {
+    count: 0,
+  };
+}
+constructor(props): The constructor method takes props as its argument. In React class components, you need to call super(props) as the first line 
+inside the constructor. This is required to ensure that the Component class's constructor (the parent class) is called first and properly set up 
+the component.
+
+this.state: Within the constructor, we use this.state to set the initial state of the component. In this example, we're initializing the count 
+state property to 0.
+
+The constructor is where you set up the initial state of your component. State is used to manage data that can change over time and affect how the 
+component is rendered. In this case, count is a state property that represents the number of times a button has been clicked.
+
+For example, if we use the Counter component in the following way:
+
+jsx
+Copy code
+<Counter />
+The constructor will be called, and the initial state of count will be set to 0.
+
+After the initial state is set in the constructor, you can use this.state to access and modify the state throughout the component's lifecycle. In 
+the handleIncrement method, you can update the state using this.setState(), which will trigger a re-render and reflect the updated state in the 
+component's output.
+
+Remember that when working with functional components using React Hooks, the constructor is not used. Instead, you manage state using the useState 
+hook. The useState hook provides a similar way to initialize state in functional components, without the need for a constructor. React Hooks have 
+become the preferred way to work with state in modern React applications, offering a simpler and more concise approach.
+
+Q.
+
+
+
+
+
+
+
