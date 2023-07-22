@@ -1,4 +1,4 @@
-Sure! Below is the schedule for learning React from scratch in Markdown format:
+
 
 # Learn React from Scratch Schedule
 
