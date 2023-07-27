@@ -1,0 +1,126 @@
+Sure! Let's learn about React Hooks Part 1 in a simple and easy way, just like I'm teaching a kid!
+
+Lesson 1: What are React Hooks?
+
+Okay, imagine you have a box of magic tools called "React Hooks." These special tools help you do amazing things with your toy called "React" (the library we use to build websites).
+
+Lesson 2: The `useState` Hook
+
+Now, let's take out the first magic tool from the box! It's called the "useState" Hook. This tool lets you have a special drawer where you can keep some numbers or words.
+
+Lesson 3: Using the `useState` Hook
+
+Let's see how we can use the "useState" tool. First, we need to tell React that we want a new drawer. We do this by saying: "Hey React, give me a drawer to store a number or word!" 
+
+
+import React, { useState } from 'react';
+
+const MyComponent = () => {
+  // Here, we're using the useState tool to get a new drawer called "count"
+  const [count, setCount] = useState(0);
+
+  // Now we have a special drawer called "count" that starts with the value 0.
+  // We can also use the "setCount" tool to change the value inside the drawer.
+
+  // Let's try increasing the count when we click a button:
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+
+  // And we can also decrease the count when we click another button:
+  const handleDecrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={handleIncrement}>Increment</button>
+      <button onClick={handleDecrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default MyComponent;
+
+
+Lesson 4: Summary
+
+So, to recap, React Hooks are like magic tools that help us do cool things in React. The `useState` Hook is one of those tools, and it lets us have special drawers where we can keep numbers or words.
+
+Using the `useState` Hook, we can create a counter that increases or decreases when we click buttons. It's like magic, right?
+
+Remember, we can use these tools to make our websites even more fun and interactive. If you have any questions, feel free to ask! Happy coding!
+
+
+Q. How can i use it in my application?
+Great! To use the `useState` hook in your app, follow these steps:
+
+1. Open the file where you want to use the `useState` hook. It could be an existing functional component or a new one you want to create.
+
+2. Import the necessary dependencies at the beginning of the file. In this case, you need to import `React` and `useState` from the 'react' package.
+
+```jsx
+import React, { useState } from 'react';
+```
+
+3. Inside your functional component, call the `useState` hook to create a new state variable. The `useState` hook returns an array with two elements: the state variable and a function to update the state. You can use array destructuring to name them.
+
+```jsx
+const MyComponent = () => {
+  const [stateVariable, setState] = useState(initialValue);
+  // ...
+};
+```
+
+Replace `stateVariable` with a name of your choice for the state variable, `setState` with a name of your choice for the update function, and `initialValue` with the initial value you want for your state variable.
+
+4. Now, you can use the `stateVariable` just like any other variable in your component. It holds the current state value.
+
+5. You can use the `setState` function to update the state. When you call `setState(newValue)`, it will change the value of the `stateVariable` to `newValue` and trigger a re-render of the component, updating the user interface.
+
+Here's an example of how to use the `useState` hook in a simple counter component:
+
+```jsx
+import React, { useState } from 'react';
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+
+  const handleDecrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={handleIncrement}>Increment</button>
+      <button onClick={handleDecrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+In this example, we use `useState(0)` to create a state variable called `count` and set its initial value to 0. We use the `setCount` function to update the `count` state when the buttons are clicked.
+
+That's it! You have successfully used the `useState` hook in your app to manage state in a functional component. You can now build more features using React Hooks and make your app even more interactive and fun!
+
+If you have any questions or need further assistance, feel free to ask. Happy coding!
+
+
+
+
+
+
+
+
+
+
+
+

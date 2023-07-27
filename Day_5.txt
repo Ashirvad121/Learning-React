@@ -1,0 +1,301 @@
+Now, let's move on to React Hooks Part 2. In this part, we'll explore another powerful hook called useEffect
+Imagine useEffect as a magical spell that lets us do something special when our component appears on the screen or changes. It's like having a little wizard that watches over our component and helps it interact with the outside world.
+
+Let's dive in and see how useEffect works:
+
+Using useEffect for Side Effects: Sometimes, our components need to do things like fetching data from a server, setting up event listeners, or updating the title of the page. These are called "side effects." We don't want to do them directly inside the component because that could cause problems. Instead, we use the useEffect hook to handle side effects safely.
+
+The Magic of useEffect: When we use useEffect, we give it two things: a function to perform the side effect, and an array of values that the effect depends on. Don't worry if this sounds tricky; I'll explain with an example:
+
+Let's say we want to fetch some data from a server and show it on the screen when our component appears. We can use useEffect to do this!
+
+Here's how it works:
+
+import React, { useState, useEffect } from 'react';
+
+function MyComponent() {
+  const [data, setData] = useState([]);
+
+  // Step 1: Using useEffect for side effects
+  useEffect(() => {
+    // Step 2: The function inside useEffect performs the side effect
+    fetchDataFromServer().then((result) => {
+      // We received the data from the server! Now, let's store it in our state.
+      setData(result);
+    });
+    // Step 3: We add an empty array as the second argument to useEffect
+    // This means the effect depends on nothing, so it will only run once when the component appears.
+  }, []);
+
+  return (
+    <div>
+      {/* Display the data on the screen */}
+      {data.map((item) => (
+        <p key={item.id}>{item.name}</p>
+      ))}
+    </div>
+  );
+}
+
+export default MyComponent;
+
+In this example:
+
+We use useEffect to fetch data from the server when the component appears on the screen.
+We pass a function to useEffect that does the fetching and updates our state with the received data.
+We provide an empty array ([]) as the second argument to useEffect, which means the effect runs only once when the component is mounted. If we pass values in the array, the effect will run whenever those values change.
+That's the magic of useEffect! It allows us to handle side effects in a clean and organized way.
+
+Remember, just like a little wizard, useEffect helps us keep our components in harmony with the world around them. Use it wisely, and you'll see the magic of React come to life! 🧙‍♂️
+
+If you have any questions or need more examples, feel free to ask! We'll continue our React adventure together! 🚀
+
+Example 1: Changing the Page Title
+
+Imagine you have a component that displays a fun fact and you want to change the page title to show that fun fact whenever the component appears on the screen.
+
+import React, { useEffect } from 'react';
+
+function FunFactComponent() {
+  const funFact = "Cats can jump up to 6 times their body length in one leap! 🐱";
+
+  // The useEffect hook with an empty dependency array will run once when the component is mounted.
+  useEffect(() => {
+    document.title = funFact; // Change the page title to the fun fact
+    return () => {
+      document.title = "My App"; // Clean up the title when the component is unmounted
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>Fun Fact:</h2>
+      <p>{funFact}</p>
+    </div>
+  );
+}
+
+export default FunFactComponent;
+
+In this example:
+
+We use useEffect to change the page title to the funFact when the component appears on the screen.
+We return a clean-up function from useEffect to revert the title to "My App" when the component is unmounted
+
+Q. How to run this in my react application with Changing the Page Title how can i do?
+To run the "Changing the Page Title" example in your React application, follow these steps:
+
+Step 1: Create a new component for the fun fact feature.
+
+```jsx
+// FunFactComponent.js
+
+import React, { useEffect } from 'react';
+
+function FunFactComponent() {
+  const funFact = "Cats can jump up to 6 times their body length in one leap! 🐱";
+
+  // The useEffect hook with an empty dependency array will run once when the component is mounted.
+  useEffect(() => {
+    document.title = funFact; // Change the page title to the fun fact
+    return () => {
+      document.title = "My App"; // Clean up the title when the component is unmounted
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>Fun Fact:</h2>
+      <p>{funFact}</p>
+    </div>
+  );
+}
+
+export default FunFactComponent;
+```
+
+Step 2: Import and use the `FunFactComponent` in your main application component or any other component where you want to display the fun fact.
+
+```jsx
+// App.js (or any other component where you want to use the FunFactComponent)
+
+import React from 'react';
+import FunFactComponent from './FunFactComponent';
+
+function App() {
+  return (
+    <div>
+      {/* Add any other components or content here */}
+      <FunFactComponent />
+    </div>
+  );
+}
+
+export default App;
+```
+
+Step 3: Start your React application using the development server.
+
+Now, when you run your React application, the `FunFactComponent` will be rendered on the screen, and the page title will be changed to the fun fact "Cats can jump up to 6 times their body length in one leap! 🐱". When you navigate away from the component or unmount it, the page title will revert to "My App."
+
+Make sure to place the `FunFactComponent.js` file in the same folder as your main application component (e.g., `App.js`) or adjust the import path accordingly if you place it in a different folder.
+
+That's it! You've successfully integrated the "Changing the Page Title" example in your React application. Enjoy exploring React's magic! 🧙‍♂️
+
+Q.what do you mean by When you navigate away from the component or unmount it, the page title will revert to "My App."?
+When I mentioned "When you navigate away from the component or unmount it, the page title will revert to 'My App,'" I meant that the change we made to the page title using the useEffect hook in the FunFactComponent will be undone.
+
+In React, when a component is rendered on the screen, it is said to be "mounted." And when the component is removed from the screen, it is "unmounted." When the FunFactComponent is mounted, it changes the page title to the fun fact we provided ("Cats can jump up to 6 times their body length in one leap! 🐱"). However, when the component is no longer on the screen (either because you navigated away from it or the component was removed from the screen due to some other reason), React will clean up the effect defined in the useEffect hook.
+
+In the cleanup phase of the useEffect hook, the return function is executed. In our example, the return function sets the page title back to "My App." This ensures that the page title is reset to its original value when the FunFactComponent is no longer visible on the screen.
+
+The cleanup function in useEffect is essential for cleaning up any resources or effects that might be associated with the component to avoid memory leaks and unexpected behavior.
+
+I hope this clarifies the concept! If you have any more questions or need further clarification, feel free to ask! 🧙‍♀️
+
+
+Q.how can we unmount the funfactcomponent?
+In a typical React application, components are mounted and unmounted based on their visibility on the screen. When a component is no longer rendered in the user interface (e.g., it's no longer part of the DOM), React automatically unmounts the component and cleans up any resources associated with it.
+
+The `FunFactComponent` will be unmounted when it's no longer rendered by its parent component or if the parent component itself is unmounted.
+
+For example, consider the following scenario:
+
+```jsx
+// App.js
+
+import React, { useState } from 'react';
+import FunFactComponent from './FunFactComponent';
+
+function App() {
+  const [showFunFact, setShowFunFact] = useState(true);
+
+  return (
+    <div>
+      <button onClick={() => setShowFunFact(!showFunFact)}>
+        {showFunFact ? 'Hide Fun Fact' : 'Show Fun Fact'}
+      </button>
+
+      {showFunFact && <FunFactComponent />}
+    </div>
+  );
+}
+
+export default App;
+```
+
+In this example, we have a parent component `App`, which renders the `FunFactComponent`. The `App` component has a state variable `showFunFact`, which determines whether the `FunFactComponent` should be shown or hidden.
+
+When you click the "Hide Fun Fact" button, the `showFunFact` state will be set to `false`, and the `FunFactComponent` will no longer be part of the UI. As a result, React will automatically unmount the `FunFactComponent`, and the page title will be reset to "My App" because of the cleanup function we defined in the `useEffect` hook.
+
+In summary, React handles the mounting and unmounting of components automatically based on their visibility in the UI. When a component is no longer rendered, it is unmounted, and any cleanup defined in the `useEffect` hook is performed.
+
+Q.will you explain above code line by line?
+Sure! Let's go through the code line by line to understand how it works:
+
+```jsx
+// App.js
+
+import React, { useState } from 'react';
+import FunFactComponent from './FunFactComponent';
+
+function App() {
+  // Step 1: Creating state variable showFunFact with initial value true
+  const [showFunFact, setShowFunFact] = useState(true);
+
+  return (
+    <div>
+      {/* Step 2: Button to toggle showFunFact state */}
+      <button onClick={() => setShowFunFact(!showFunFact)}>
+        {showFunFact ? 'Hide Fun Fact' : 'Show Fun Fact'}
+      </button>
+
+      {/* Step 3: Conditionally rendering FunFactComponent based on showFunFact state */}
+      {showFunFact && <FunFactComponent />}
+    </div>
+  );
+}
+
+export default App;
+```
+
+Now, let's break down the code:
+
+**Step 1:** We're importing React and the `useState` hook from the 'react' module. We're also importing the `FunFactComponent` that we want to conditionally render in our `App` component.
+
+**Step 2:** We define a state variable `showFunFact` using the `useState` hook. `showFunFact` will keep track of whether the `FunFactComponent` should be shown or hidden. We set the initial value of `showFunFact` to `true`, meaning the `FunFactComponent` will be initially shown.
+
+**Step 3:** In the return statement, we have a button and a conditional rendering block.
+
+- The button has an `onClick` event handler that toggles the value of `showFunFact`. When you click the button, it will call `setShowFunFact(!showFunFact)`, which will set `showFunFact` to the opposite of its current value (if it's `true`, it becomes `false`, and vice versa).
+
+- The conditional rendering block `{showFunFact && <FunFactComponent />}` checks the value of `showFunFact`. If it's `true`, it will render the `FunFactComponent`. If `showFunFact` is `false`, the `FunFactComponent` won't be rendered, and React will unmount it if it was previously rendered.
+
+So, when you click the "Hide Fun Fact" button, `showFunFact` will become `false`, and the `FunFactComponent` will no longer be part of the UI. React will unmount it, and the page title will be reset to "My App" due to the cleanup function defined in the `useEffect` hook of the `FunFactComponent`.
+
+I hope this explanation helps you understand the code flow. If you have any more questions or need further clarification, feel free to ask! 🚀
+
+Q.Will you explain me time counter application line by line ?
+Certainly! Let's go through the Time Counter application code line by line to understand how it works:
+
+```jsx
+// TimerComponent.js
+
+import React, { useState, useEffect } from 'react';
+
+function TimerComponent() {
+  // Step 1: Creating state variable seconds with initial value 10
+  const [seconds, setSeconds] = useState(10);
+
+  // Step 2: Using useEffect for side effects
+  useEffect(() => {
+    // Step 3: Creating a timer using setInterval and updating the seconds state
+    const timer = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds - 1);
+    }, 1000);
+
+    // Step 4: Clean up the timer when the component is unmounted or when seconds reach 0
+    return () => {
+      clearInterval(timer);
+    };
+  }, []); // Step 5: An empty dependency array means the effect runs once when the component is mounted
+
+  // Step 6: Using another useEffect to show an alert when seconds reach 0
+  useEffect(() => {
+    if (seconds === 0) {
+      alert("Time's up!");
+    }
+  }, [seconds]);
+
+  return (
+    <div>
+      <h2>Timer:</h2>
+      {/* Step 7: Displaying the seconds state on the screen */}
+      <p>{seconds} seconds</p>
+    </div>
+  );
+}
+
+export default TimerComponent;
+```
+
+Now, let's break down the code:
+
+**Step 1:** We're importing React, the `useState` hook, and the `useEffect` hook from the 'react' module. We're also defining our functional component called `TimerComponent`.
+
+**Step 2:** We define a state variable `seconds` using the `useState` hook. `seconds` will keep track of the remaining seconds in the timer. We set the initial value of `seconds` to `10`.
+
+**Step 3:** We use the `useEffect` hook to handle side effects. In this case, we create a timer using `setInterval`, which will decrease the value of `seconds` every 1000 milliseconds (1 second). The `setSeconds` function takes a callback that receives the previous state value (`prevSeconds`) and returns the new state value by subtracting 1 from it.
+
+**Step 4:** We return a cleanup function from the `useEffect` hook to clear the timer when the component is unmounted or when the `seconds` state reaches 0. The cleanup function uses `clearInterval(timer)` to stop the timer.
+
+**Step 5:** The empty dependency array `[]` as the second argument of the first `useEffect` means that the effect will run only once when the component is mounted. Since the effect does not depend on any variable, it won't run again after the initial mount.
+
+**Step 6:** We use another `useEffect` hook to show an alert when `seconds` reaches 0. This effect depends on the `seconds` state because we want it to run every time the `seconds` value changes.
+
+**Step 7:** We display the `seconds` state on the screen inside the `<p>` element, showing the remaining time of the timer.
+
+That's how the Time Counter application works! The timer will start at 10 seconds and decrease every second until it reaches 0. When it reaches 0, an alert will pop up, indicating that the time is up.
+
+I hope this explanation helps you understand the Time Counter application. If you have any more questions or need further clarification, feel free to ask! 🕰️🚀
+
